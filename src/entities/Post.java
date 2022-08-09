@@ -1,10 +1,14 @@
 package entities;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public class Post {
+
+    //Esse static foi necessário para que toda vez que usar o SimpleDateFormat não precisar instânciar.
+    private static SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy HH:mm:ss");
 
     private Date moment;
     private String title;
@@ -66,5 +70,21 @@ public class Post {
     }
     public void removeComment(Coment comment){
         comments.remove(comment);
+    }
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(title + "\n");
+        sb.append(likes);
+        sb.append(" Likes - ");
+        sb.append(sdf.format(moment) + "\n");
+        sb.append(content + "\n");
+        sb.append("Comments:\n");
+
+        //Para cada coment c na minha lista coments do post
+        for (Coment c : comments){
+            sb.append(c.getText() + "\n");
+        }
+        return sb.toString();
+        
     }
 }
